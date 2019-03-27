@@ -21,21 +21,24 @@ const port = 3000;
 // 创建服务器
 const server = http.createServer ( function(request, response){
     let url = request.url;
-    if(url === '/text.html'){
+    console.log(url)
+    if(url === '/test.html'){
+        console.log(url)
         fs.readFile(`./webstatic${request.url}`, (err, data)=>{
             if(err) {
                 response.statusCode = 400;
                 response.write('Not Found');
             } else {
+                console.log('x');
                 response.write(data)
             }
+            response.end();
         });
     }
     if(url === '/login'){
         response.write('lll');
     }
     // 关闭
-    response.end();
 });
 server.listen( port, hostname, ()=> {
     console.log(`server run at http://${hostname}:${port}/test.html`);
