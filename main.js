@@ -3,44 +3,23 @@ const url = require('url');
 const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
-// const conn = require('./sql/server.js');
+
 
 const hostname = 'localhost';
 const port = 3000;
-
-// const mysql = require('mysql');
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '1234',
-//   insecureAuth: true,
-//   database: 'lerandb'
-// });
-// // 连接数据库
-// connection.connect();
 // 创建服务器
 const server = http.createServer ( function(request, response){
-    let url = request.url;
-    console.log(url)
-    if(url === '/test.html'){
-        console.log(url)
-        fs.readFile(`./webstatic${request.url}`, (err, data)=>{
-            if(err) {
-                response.statusCode = 400;
-                response.write('Not Found');
-            } else {
-                console.log('x');
-                response.write(data)
-            }
-            response.end();
-        });
-    }
-    if(url === '/login'){
-        response.write('lll');
-    }
-    // 关闭
+    // 读取test文件
+    fs.readFileSync('./webstatic/test.html', (err, data)=>{
+        if(err) {
+            response.statusCode = 400;
+            response.end('not Found')
+        } else {
+             
+        }
+    })
 });
 server.listen( port, hostname, ()=> {
-    console.log(`server run at http://${hostname}:${port}/test.html`);
-    childProcess.exec(`start http://${hostname}:${port}/test.html`);
+    console.log(`server run at http://${hostname}:${port}`);
+    childProcess.exec(`start http://${hostname}:${port}`);
 });
